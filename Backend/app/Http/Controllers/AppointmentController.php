@@ -5,62 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $appointment=Appointment::with('user')->get();
+         return response()->json(['message'=>'All appointment',
+                                  'appointment'=>$appointment]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAppointmentRequest $request)
     {
-        //
+        $app=$request->validated();
+        $app['user_id']=Auth::user()->id;
+        $appointment=Appointment::create($app);
+        return response()->json(['message'=>'appointment est ajouter',
+                                  'appointment'=>$appointment]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Appointment $appointment)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Appointment $appointment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAppointmentRequest $request, Appointment $appointment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+        return response()->json(['message'=>'appointment est supprimer']);
     }
 }

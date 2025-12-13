@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/appointment', [AppointmentController::class, 'store']);
+Route::post('/appointment/add', [AppointmentController::class, 'store']);
+Route::post('/appointment/get', [AppointmentController::class, 'index']);
+});
+
+Route::middleware('auth:sanctum','role:admin')->group(function () {
+Route::post('/user', [AuthController::class, 'index']);
+
 });
