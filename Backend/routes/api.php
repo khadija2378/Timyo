@@ -26,11 +26,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/appointment', [AppointmentController::class, 'store']);
-Route::post('/appointment/add', [AppointmentController::class, 'store']);
-Route::post('/appointment/get', [AppointmentController::class, 'index']);
+Route::get('/appointment', [AppointmentController::class, 'index']);
+
 });
 
 Route::middleware('auth:sanctum','role:admin')->group(function () {
-Route::post('/user', [AuthController::class, 'index']);
+
 
 });

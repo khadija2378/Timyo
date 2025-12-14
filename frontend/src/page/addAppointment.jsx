@@ -1,22 +1,23 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 function AddAppointment(){
-    const [subject,setSubject]=useState();
-    const [description,setDescription]=useState();
-    const [datetime,setDatetime]=useState();
-
+    const [subject,setSubject]=useState("");
+    const [description,setDescription]=useState("");
+    const [datetime,setDatetime]=useState("");
+    const navigate=useNavigate();
     const {addAppointment}=useContext(AppContext);
 
 const handleSubmit = async(e) =>{
 e.preventDefault();
      
-     const data = {    
+     const app = {    
            subject,
            description,
            datetime  
       };
- const success = await addAppointment(data);
+ const success = await addAppointment(app);
   
   
        if(!success){
@@ -24,9 +25,9 @@ e.preventDefault();
           return;
        }
   
-      if (success) {
+     
           navigate('/listeAppointment');
-      }
+      
 }
 
     return(

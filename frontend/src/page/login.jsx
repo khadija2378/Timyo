@@ -26,9 +26,9 @@ function Login(){
           return;
        }
   
-      if (success) {
-          navigate('/login');
-      }
+      
+          navigate('/addAppointment');
+      
     }
     return( 
 <section class="bg-gray-50 dark:bg-gray-900">

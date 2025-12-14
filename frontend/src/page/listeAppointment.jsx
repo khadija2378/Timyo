@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 function ListeAppointment(){
-    const [app,setApp]=useState();
+    const [app,setApp]=useState([]);
     const {getApp}=useContext(AppContext);
 
     useEffect(()=>{
         getApp().then(data => setApp(data));    
     },[])
 return(
-     <section class="bg-gray-50">
+     <section class="bg-gray-50 pt-80">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
        <h1 class="text-xl font-bold pb-10 text-gray-800 md:text-2xl text-center">
                   Liste Appointment

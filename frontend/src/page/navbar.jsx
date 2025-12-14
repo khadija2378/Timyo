@@ -1,6 +1,11 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 function Navbar(){
+    const { logout, user }=useContext(AppContext);
+
+    
     return(
       
 <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-100">
@@ -31,6 +36,15 @@ function Navbar(){
           <span class="block py-2 px-3 text-gray-700 rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Dashbord</span>
        </Link>
         </li>
+        {user ? (
+          <>
+            <li>Welcome {user.name}</li>
+         <li>   
+          <button onClick={logout} class="block py-2 px-3 text-white rounded bg-gray-600 hover:bg-gray-700">Logout</button> 
+        </li> 
+        </>
+         ) : (
+            <>
         <li>
             <Link to="/login">
           <span class="block py-2 px-3 text-gray-700 rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Login</span>
@@ -41,6 +55,8 @@ function Navbar(){
           <span class="block py-2 px-3 text-gray-700 rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Register</span>
        </Link>
         </li>
+        </>
+         )}
       </ul>
     </div>
   </div>

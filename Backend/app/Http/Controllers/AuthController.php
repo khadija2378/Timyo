@@ -15,14 +15,14 @@ class AuthController extends Controller
     {
         $user=User::all();
          return response()->json(['message'=>'All users',
-                                  'appointment'=>$user]);
+                                  'user'=>$user]);
     }
 
     public function register(RegiterRequest $request){
-       $user= $request->validated();
+       $users= $request->validated();
 
-       $data=User::create($user);
-       Auth::login($data);
+       $data=User::create($users);
+
        return response()->json([
     'message' => 'Registration success',
     'user' => $data
@@ -45,9 +45,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
 {
-    Auth::logout();
+    Auth::guard('web')->logout();
 
-    $request->session()->invalidate();
+    $request->session()->flush();
     $request->session()->regenerateToken();
 
     return response()->json([
